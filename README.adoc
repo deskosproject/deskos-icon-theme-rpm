@@ -1,0 +1,3 @@
+= DeskOS: deskos-icon-theme RPM
+
+This is the _deskos-icon-theme_ RPM package for the *DeskOS* operating system.
