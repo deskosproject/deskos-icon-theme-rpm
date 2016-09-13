@@ -4,46 +4,53 @@
 Name:           deskos-icon-theme
 Version:        0.1
 Release:        1
-Summary:        Icons for the DeskOS Project
-License:        GPLv2
-URL:            https://deskosproject.org
-Source0:        https://github.com/sljunkie/adwaita-blue/tarball/%{commit}
+Summary:        Defaults icons for DeskOS
+
+License:        CC-BY-SA
+URL:            https://github.com/deskosproject/deskos-icon-theme-rpm
+
+# Downloaded from https://github.com/sljunkie/adwaita-blue/tarball/%{commit}
+Source0:        https://dl.deskosproject.org/sources/deskos-icon-theme/sljunkie-adwaita-blue-%{shortcommit}.tar.gz
+Patch0:         deskos-name.patch
+
 BuildArch:      noarch
 Requires:       adwaita-icon-theme
 Requires:       hicolor-icon-theme
 
 %description
-This is a minimal icon theme based on Cheser by chekavy whose aim is to
-serve only as a 'blue folder' variation on the stock GNOME icon theme
-Adwaita. Plus a few mimetypes and device icons that fit the original
-icon theme look and feel.
+Default icons for DeskOS, based on Adwaita Blue by sljunkie.
+Adwaita Blue is a minimal icon theme based on Cheser by chekavy whose
+aim is to serve only as a 'blue folder' variation on the stock GNOME
+icon theme Adwaita. Plus a few mimetypes and device icons that fit the
+original icon theme look and feel.
 
 %prep
 %setup -q -n sljunkie-adwaita-blue-%{shortcommit}
+%patch0 -p1
 
 %build
 
 %install
-mkdir -p %{buildroot}%{_datadir}/icons/deskos
-cp -pr *x* %{buildroot}%{_datadir}/icons/deskos
-cp -p index.theme %{buildroot}%{_datadir}/icons/deskos
+mkdir -p %{buildroot}%{_datadir}/icons/DeskOS
+cp -pr 16x16 22x22 24x24 32x32 48x48 256x256 %{buildroot}%{_datadir}/icons/DeskOS
+cp -p index.theme %{buildroot}%{_datadir}/icons/DeskOS
 
 %post
-touch --no-create %{_datadir}/icons/deskos &>/dev/null ||:
+touch --no-create %{_datadir}/icons/DeskOS &>/dev/null ||:
 
 %postun
 if [ $1 -eq 0 ] ; then
-  touch --no-create %{_datadir}/icons/deskos &>/dev/null
-  gtk-update-icon-cache -q %{_datadir}/icons/deskos &>/dev/null ||:
+  touch --no-create %{_datadir}/icons/DeskOS &>/dev/null
+  gtk-update-icon-cache -q %{_datadir}/icons/DeskOS &>/dev/null ||:
 fi
 
 %posttrans
-gtk-update-icon-cache %{_datadir}/icons/deskos &>/dev/null ||:
+gtk-update-icon-cache %{_datadir}/icons/DeskOS &>/dev/null ||:
 
 %files
 %doc README.md
 %license COPYING
-%{_datadir}/icons/deskos
+%{_datadir}/icons/DeskOS
 
 %changelog
 * Fri Apr 15 2016 Ricardo Arguello <rarguello@deskosproject.org> - 0.1-1
