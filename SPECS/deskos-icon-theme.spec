@@ -3,7 +3,7 @@
 
 Name:           deskos-icon-theme
 Version:        0.1
-Release:        1
+Release:        1%{?dist}
 Summary:        Defaults icons for DeskOS
 
 License:        CC-BY-SA
